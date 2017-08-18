@@ -1483,9 +1483,10 @@ var RLANG = {
 			deleteBtn.css('cursor','pointer');
 			$(deleteBtn).off('click');
 			$(deleteBtn).click($.proxy(function(e)
-			{
-				this.confirmdel(parent);
-			},this))
+				{
+					this.confirmdel(parent);
+				},this))
+			
 
 			editBtn.css('cursor','pointer');
 			$(editBtn).off('click');
