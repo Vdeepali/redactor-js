@@ -188,7 +188,7 @@ var RLANG = {
 
 			buttonsCustom: {},
 			buttonsAdd: [],
-			buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', 'underline', '|', 'unorderedlist', 'orderedlist', '|',
+			buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', 'underline','|','indent','outdent', '|', 'unorderedlist', 'orderedlist', '|',
 					'image', 'video', 'file', 'link', '|',
 					'fontcolor', 'backcolor', '|', 'alignment','|', 'fontsize', '|', 'fontfamily', '|', 'multiple'], // 'underline', 'alignleft', 'aligncenter', 'alignright', 'justify'
 
