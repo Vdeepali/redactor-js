@@ -88,6 +88,7 @@ var RLANG = {
 	multiple: 'multiple',
 	imagevalidation:'Insert image in correct format',
 	confirmDelete:'Are you sure you want to delete image ?',
+	imagegallery: ' Image Gallery'
 };
 
 (function($){
@@ -190,7 +191,7 @@ var RLANG = {
 			buttonsAdd: [],
 			buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', 'underline','|','indent','outdent', '|', 'unorderedlist', 'orderedlist', '|',
 					'image', 'video', 'file', 'link', '|',
-					'fontcolor', 'backcolor', '|', 'alignment','|', 'fontsize', '|', 'fontfamily', '|', 'multiple'], // 'underline', 'alignleft', 'aligncenter', 'alignright', 'justify'
+					'fontcolor', 'backcolor', '|', 'alignment','|', 'fontsize', '|', 'fontfamily', '|', 'multiple' , '|','imagegallery','|'  ],
 
 			airButtons: ['formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'fontcolor', 'backcolor'],
 
@@ -261,10 +262,12 @@ var RLANG = {
 				'</div>',
 			modal_image_delete: String()+
 				'<div id = "redactor_modal_content">'+
-				'<div id="confirmdelete">'+'<label>'+ RLANG.confirmDelete +'</label>' + '</div>'+
-				'</div>' +
-				'<input type="button" name="ok" class="redactor_modal_btn " id="redactor_imgdel_btn" value="' + 'Yes' + '" />' +
-				'<input type="button" name="cancel" class="redactor_modal_btn" id="redactor_imgdelclose_btn" value="' + 'No' + '" />' +
+					'<div id="confirmdelete">'+'<label>'+ RLANG.confirmDelete +'</label>' + '</div>'+
+					'</div>' +
+				'</div>'+
+				'<div id = "redactor_modal_footer" style="text-align: justify;">'+
+					'<input type="button" name="ok" class="redactor_modal_btn " id="redactor_imgdel_btn" value="' + 'Yes' + '" />' +
+					'<input type="button" name="cancel" class="redactor_modal_btn" id="redactor_imgdelclose_btn" value="' + 'No' + '" />' +
 				'<div>',
 
 			modal_image: String() +
@@ -345,10 +348,26 @@ var RLANG = {
 					'<a href="javascript:void(null);" class="redactor_modal_btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
 					'<input type="button" class="redactor_modal_btn" id="redactor_insert_video_btn" value="' + RLANG.insert + '" />' +
 				'</div>',
+			modal_createimggallery: String() +
+				'<div id = "redactor_modal_content">'+
+					//'<label>Upload Image</label>' +
+					'<div class="imgsize">'+
+							//'<img src=" " class = "imgsize">'+
+							'<div class="drag" draggable="true">'+
+							'<label> '+ 'Drag & Drop' +'<input id="redac_file" type = "file" multiple/>'+ '</label>' + '</input>'+
+							'</div>'+
+					'</div>'+
+					'<div id="imagecontainer">'+
+					'</div>'+
+				'</div>'+
+				'<div id = "redactor_modal_footer">'+
+					'<input type = "button" value="Add" class="redactor_modal_btn" >'+
+				'</div>',
+
 			modal_mulipleImage: String() +
 				'<div id="redactor_modal_content">' +
 					'<label>Upload images</label>' +
-					'<input type="file" class="custom-file-input" id="redactor_multiple_file_upload" multiple/>' +
+					'<input type="file" class="custom-file-input" id="redactor_multiple_file_upload" >' +
 				'</div>' +
 				'<div id="redactor_modal_footer">' +
 					'<a href="javascript:void(null);" class="redactor_modal_btn redactor_btn_modal_close">' + RLANG.cancel + '</a>' +
@@ -620,6 +639,11 @@ var RLANG = {
 				multiple: {
 					title: RLANG.multiple,
 					func: 'showMultipleImage'
+				},
+				imagegallery:
+				{
+					title : RLANG.imagegallery,
+					func:'createimagegallary'
 				}
 			}
 
@@ -1554,9 +1578,9 @@ var RLANG = {
 		},
 		confirmdel:function(parent)
 		{
-			$("#redactor_modal").addClass('confirm');
+			//$("#redactor_modal").addClass('confirm');
 			$("#redactor_modal_close").css('visibility','hidden');
-			this.modalInit('',this.opts.modal_image_delete, 300, $.proxy(function()
+			this.modalInit('',this.opts.modal_image_delete, 280, $.proxy(function()
 			{
 				$("#redactor_imgdel_btn").click($.proxy(function(e)
 				{
@@ -2198,8 +2222,54 @@ var RLANG = {
 
 			return html;
 		},
+		createimagegallary:function()
+		{
+			this.saveSelection();
+			var callback = $.proxy(function()
+			{
+			 $('#redac_file').change($.proxy(this.addImages,this));
+			 },this);
+		
+			this.modalInit('',this.opts.modal_createimggallery,600,callback);
+			//this.addImages();
+			//var images= document.createElement('img');
+			//$('imagecontainer'.appendChild(images));
+			// var galleryContainer = document.createElement('div');
+			// var gallerywrap= document.createElement('div');
+			// var galleryitem= document.createElement('div');
+			// var imggal= document.createElement('img');
+			// galleryContainer.appendChild(gallerywrap);
+			// gallerywrap.appendChild(galleryitem);
+			// galleryitem.appendChild(imggal);
+			// imggal.src="https://sp.yimg.com/ib/th?id=OIP.fTnXsbPgT3KabxWHN1EFcgEsDI&pid=15.1&rs=1&c=1&qlt=95&w=193&h=129";
+			// console.log(galleryContainer);
+		},
+		addImages:function(e)
+		{
 
+			//var myimg = $('#redac_file')[0].files;
+			var myimgfile = e.target.files;	
+			for(var i=0; i<myimgfile.length ; i++)
+				{
+					var fr = new FileReader();
+					fr.readAsDataURL(myimgfile[i]);
+					fr.onload = function(event)
+					{
+						var urls = event.target.result;
+						$('#imagecontainer').append($("<img src ='"+ urls +"' class ='"+"settings"+"'/>"));
+						$('#imagecontainer').css('height','100px');
+						if(myimgfile.length>5)
+							{
+								$('#imagecontainer').css('overflow','auto');
+							}
+					}
+				}
+			console.log("hello");	
+		},
 		// TOGGLE
+
+
+
 		toggle: function()
 		{
 			var html;
@@ -2724,6 +2794,7 @@ var RLANG = {
 					{
 						$(this).addClass('redactor_color_act')
 					}
+					
 			});
 
 		},

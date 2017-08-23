@@ -509,22 +509,8 @@ body .redactor_toolbar li a.redactor_btn_alignment	 		{ background-position: -62
 #redactor_modal_content {
 	padding: 20px 30px;
 }
-#redactor_imgdel_btn
-{
-	margin-left: 70px !important;
-}
-#redactor_imgdelclose_btn
-{
-	margin-left: 40px !important;
-}
-.confirm
-{
-	width:280px !important;
-	height:130px !important;
-	margin-left: -150px !important;
-	margin-top: -30px !important;
-	border: 1px solid red;
-}
+
+
 #redactor_modal_close {
 	position: absolute;
 	right: 5px;
@@ -734,4 +720,50 @@ body .redactor_toolbar li a.redactor_btn_alignment	 		{ background-position: -62
     cursor: not-allowed;
     
 }
-.
+#redactor_imgdel_btn
+{
+	margin-left: 40px !important;
+}
+#redactor_imgdelclose_btn
+{
+	margin-left: 40px !important;
+}
+  
+.imgsize
+{
+	height:100px !important;
+	width: 530px !important;
+	border: 2px dashed black !important;
+}
+.imgcollection
+{
+	height:200px !important;
+	width: 120px !important;
+	border: 2px solid black;
+	margin-right: 11px;
+	margin-top:5px;
+
+}
+.drag
+{
+	margin-left:230px;
+	margin-top:40px;
+}
+#redac_file
+{
+	visibility: hidden;
+}
+div.imagecontainer
+{
+	float: left;
+	height: auto !important;
+	width : 60px !important;
+	position: relative;
+}
+#imagecontainer img
+{
+	width: 100px;
+	height: 100px;
+	margin: 2px;
+
+}
