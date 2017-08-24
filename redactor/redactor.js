@@ -1592,6 +1592,7 @@ var RLANG = {
 				{
 					this.modalClose();
 				},this));
+
 				
 			},this));
 		},
@@ -2227,49 +2228,43 @@ var RLANG = {
 			this.saveSelection();
 			var callback = $.proxy(function()
 			{
-			 $('#redac_file').change($.proxy(this.addImages,this));
-			 },this);
-		
+			 	$('#redac_file').change($.proxy(this.addImages,this));
+			 	},this);
 			this.modalInit('',this.opts.modal_createimggallery,600,callback);
-			//this.addImages();
-			//var images= document.createElement('img');
-			//$('imagecontainer'.appendChild(images));
-			// var galleryContainer = document.createElement('div');
-			// var gallerywrap= document.createElement('div');
-			// var galleryitem= document.createElement('div');
-			// var imggal= document.createElement('img');
-			// galleryContainer.appendChild(gallerywrap);
-			// gallerywrap.appendChild(galleryitem);
-			// galleryitem.appendChild(imggal);
-			// imggal.src="https://sp.yimg.com/ib/th?id=OIP.fTnXsbPgT3KabxWHN1EFcgEsDI&pid=15.1&rs=1&c=1&qlt=95&w=193&h=129";
-			// console.log(galleryContainer);
 		},
 		addImages:function(e)
 		{
-
-			//var myimg = $('#redac_file')[0].files;
 			var myimgfile = e.target.files;	
 			for(var i=0; i<myimgfile.length ; i++)
+			{
+				var fr = new FileReader();
+				fr.readAsDataURL(myimgfile[i]);
+				fr.onload = $.proxy(function(event)
 				{
-					var fr = new FileReader();
-					fr.readAsDataURL(myimgfile[i]);
-					fr.onload = function(event)
+					var urls = event.target.result;
+					var images = $("<img src ='"+ urls +"'/>")
+					var container =$("<div id = '" + 'imgdiv' + "'>")
+					$('#imagecontainer').append(container);
+					$(container).append(images)
+					console.log(container);
+					$('#imagecontainer').css('height','150px');
+					var child = $('#imagecontainer').children();
+					if(child.length>4)
 					{
-						var urls = event.target.result;
-						$('#imagecontainer').append($("<img src ='"+ urls +"' class ='"+"settings"+"'/>"));
-						$('#imagecontainer').css('height','100px');
-						if(myimgfile.length>5)
-							{
-								$('#imagecontainer').css('overflow','auto');
-							}
+						$('#imagecontainer').css('overflow','auto');
 					}
-				}
-			console.log("hello");	
+					$(images).hover($.proxy(function()
+					{
+						this.deleteGalleryImage();
+					},this));
+				},this);
+			}
+		},
+		deleteGalleryImage:function()
+		{
+			 console.log("hiiiiii");			
 		},
 		// TOGGLE
-
-
-
 		toggle: function()
 		{
 			var html;
