@@ -139,3 +139,35 @@ ul.btn-class li {
    opacity: 1;
    visibility: visible;
  }
+
+ ul.editBtnCls li {
+  display: inline-block;
+  padding: 5px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;  
+}
+
+.editBtnCls {
+  position: relative;
+  top: -160px;
+  right: -5px;
+  display: inline-block;;
+  opacity: 1;
+  visibility: hidden;
+  -webkit-transition: opacity 1s ease-in, visibility 1s ease-in;
+  transition: opacity 700ms ease-in, visibility 700ms ease-in;
+  }
+  .galSpan
+  {
+    line-height: 15px;
+    padding: 4px;
+    -moz-border-radius: 10px;
+    border-radius: 20px;
+    background-color: black;
+    text-align: center;
+    font-size: x-small;
+  }
+ 
+
