@@ -2242,27 +2242,74 @@ var RLANG = {
 				fr.onload = $.proxy(function(event)
 				{
 					var urls = event.target.result;
-					var images = $("<img src ='"+ urls +"'/>")
-					var container =$("<div id = '" + 'imgdiv' + "'>")
+					var images = $("<img src ='"+ urls +"' />")
+					var container =$("<div id = '" + 'imgdiv' + "' >")
+					var buttonList=this.createGalleryImageEditButtons();
 					$('#imagecontainer').append(container);
-					$(container).append(images)
-					console.log(container);
+					$(container).append(images,$(buttonList));
 					$('#imagecontainer').css('height','150px');
 					var child = $('#imagecontainer').children();
 					if(child.length>4)
 					{
 						$('#imagecontainer').css('overflow','auto');
 					}
-					$(images).hover($.proxy(function()
+					$(container).hover(function()
 					{
-						this.deleteGalleryImage();
-					},this));
+						$(container).children('.editBtnCls').css('visibility','visible');
+					},function()
+					{
+						$(container).children('.editBtnCls').css('visibility','hidden');
+					});
 				},this);
 			}
 		},
-		deleteGalleryImage:function()
+		createGalleryImageEditButtons:function()
 		{
-			 console.log("hiiiiii");			
+			var list = $('<ul class = "editBtnCls">');
+			var parent =$('#imgdiv');
+			
+			
+			var galIcons = [{icon:'fa fa-pencil', role:'edit'}, {icon:'fa fa-align-justify', role: 'caption'}, {icon:'fa fa-trash', role: 'delete'}]
+			$.each(galIcons, $.proxy(function(i,val)
+			{
+				var fontIcon =  this.createFontIcons(val)
+				var galleryspan = this.createSpan('galSpan');
+				galleryspan.append(fontIcon)
+				var li = $('<li/>')
+					.attr('role', val.role)
+					.append(galleryspan)
+					.appendTo(list);
+			}, this))
+			var editButton = list.children('[role="edit"]');
+			var captionButton = list.children('[role="caption"]');
+			var deleteButton = list.children('[role="delete"]');
+
+			editButton.css('cursor','pointer');
+			editButton.off('click');
+			$(editButton).click($.proxy(function(e)
+			{
+				var image = list.siblings();
+				var $el=$(image);
+				this.aviaryEditor($el);
+				},this));
+		
+
+			captionButton.css('cursor','pointer');
+			captionButton.off('click');
+			$(captionButton).click(function()
+			{
+				console.log("caption added");
+			})
+
+			deleteButton.css('cursor','pointer');
+			deleteButton.off('click');
+			$(deleteButton).click(function()
+			{
+				console.log("deleted");
+				list.parent().remove();
+			})
+
+			return list;
 		},
 		// TOGGLE
 		toggle: function()
@@ -3723,6 +3770,7 @@ var RLANG = {
 			
             return ul;
 		},
+		
 		createAnchor: function()
 		{
             var aTag = document.createElement('a');
@@ -4071,7 +4119,7 @@ var RLANG = {
 			var span = this.createSpan('drop')
 			var btnList = this.createImageEditBtn()
 			generatedFigure.append(span, $(btnList), $(image), $(caption));
-            return generatedFigure;
+			return generatedFigure;
 
 		},
 		imageValidation:function()
