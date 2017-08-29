@@ -2291,6 +2291,7 @@ var RLANG = {
 			var editButton = list.children('[role="edit"]');
 			var captionButton = list.children('[role="caption"]');
 			var deleteButton = list.children('[role="delete"]');
+<<<<<<< HEAD
 
 			editButton.css('cursor','pointer');
 			editButton.off('click');
@@ -2303,6 +2304,20 @@ var RLANG = {
 				},this));
 		
 
+=======
+
+			editButton.css('cursor','pointer');
+			editButton.off('click');
+			$(editButton).click($.proxy(function(e)
+			{
+				var image = list.siblings();
+				var $el=$(image);
+				console.log($el);
+				this.aviaryEditor($el);
+				},this));
+		
+
+>>>>>>> b22d61a129903778a89a5a074c02520713aabd19
 			captionButton.css('cursor','pointer');
 			captionButton.off('click');
 			$(captionButton).click(function()
