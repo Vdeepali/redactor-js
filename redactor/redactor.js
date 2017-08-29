@@ -886,6 +886,7 @@ var RLANG = {
 			this.featherEditor = new Aviary.Feather({
                 apiKey: '3c2ecea9c7734cb88633e839e970e6d5',
                 onSave: function(imageID, newURL) {
+					console.log('hello world', imageID, newURL);
                         var img = document.getElementById(imageID);
 						img.src = newURL;
 						setTimeout(function(){
@@ -2242,14 +2243,16 @@ var RLANG = {
 				fr.onload = $.proxy(function(event)
 				{
 					var urls = event.target.result;
-					var images = $("<img src ='"+ urls +"' />")
+					var imgId = this.generateRandomId();
+					var images = $('<img id = ' +imgId+' src ='+ urls +'  />')
 					var container =$("<div id = '" + 'imgdiv' + "' >")
+					var captionDiv =$("<div class = '" + 'gallerycaptiondiv' + "' contentEditable='" + 'true'+"' maxLength = '+10+'	 >")
 					var buttonList=this.createGalleryImageEditButtons();
 					$('#imagecontainer').append(container);
-					$(container).append(images,$(buttonList));
-					$('#imagecontainer').css('height','150px');
+					$(container).append(images,$(buttonList),$(captionDiv));
+					$('#imagecontainer').css('height','170px');
 					var child = $('#imagecontainer').children();
-					if(child.length>4)
+					if(child.length>3)
 					{
 						$('#imagecontainer').css('overflow','auto');
 					}
@@ -2260,6 +2263,11 @@ var RLANG = {
 					{
 						$(container).children('.editBtnCls').css('visibility','hidden');
 					});
+					var max=30;
+					var len = $(captionDiv).text().length;
+					if(len>max)
+						{
+					console.log(len);}
 				},this);
 			}
 		},
@@ -2290,6 +2298,7 @@ var RLANG = {
 			{
 				var image = list.siblings();
 				var $el=$(image);
+				console.log($el);
 				this.aviaryEditor($el);
 				},this));
 		
@@ -2299,6 +2308,7 @@ var RLANG = {
 			$(captionButton).click(function()
 			{
 				console.log("caption added");
+				list.siblings('div').css('visibility','visible');
 			})
 
 			deleteButton.css('cursor','pointer');
@@ -3797,6 +3807,7 @@ var RLANG = {
 		{
 			this.modalClose();
 			this.featherEditor.launch({image: elem.attr('id'), url: elem.attr('src')});
+			//console.log(elem.attr('id'),elem.attr('src'));
             return false;
 		},
 		// INSERT IMAGE

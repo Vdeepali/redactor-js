@@ -174,8 +174,8 @@ ul.btn-class li {
 
 .editBtnCls {
   position: relative;
-  top: -160px;
-  right: -5px;
+  top: -177px;
+  right: -35px;
   display: inline-block;;
   opacity: 1;
   visibility: hidden;
@@ -192,5 +192,6 @@ ul.btn-class li {
     text-align: center;
     font-size: x-small;
   }
+  
  
 
