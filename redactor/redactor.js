@@ -2242,7 +2242,7 @@ var RLANG = {
 					var imgId = this.generateRandomId();
 					var images = $('<img id = ' +imgId+' src ='+ urls +'  />')
 					var container =$("<div id = '" + 'imgdiv' + "' >")
-					var captionDiv =$("<div class = '" + 'gallerycaptiondiv' + "' contentEditable='" + 'true'+"' maxLength = '+10+'	 >")
+					var captionDiv =$("<div class = '" + 'gallerycaptiondiv' + "' contentEditable='" + 'true'+"' >")
 					var buttonList=this.createGalleryImageEditButtons();
 					$('#imagecontainer').append(container);
 					$(container).append(images,$(buttonList),$(captionDiv));
